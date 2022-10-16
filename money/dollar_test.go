@@ -15,3 +15,13 @@ func TestMultiplication(t *testing.T) {
 		t.Errorf("expect %d actual %d", 15, five.amount)
 	}
 }
+
+func TestEquality(t *testing.T) {
+	if !newDollar(5).equals(newDollar(5)) {
+		t.Error("expect equal but actual not equal")
+	}
+	if newDollar(5).equals(newDollar(6)) {
+		t.Error("expect not equal but actual equal")
+	}
+
+}
