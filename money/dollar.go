@@ -9,6 +9,7 @@ func newDollar(amount int) *Dollar {
 	return d
 }
 
-func (d *Dollar) times(multiplier int) {
-	d.amount *= multiplier
+func (d *Dollar) times(multiplier int) Dollar {
+	// これがコピーを返すっていう意味か！
+	return *newDollar(d.amount * multiplier)
 }
