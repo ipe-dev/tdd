@@ -1,10 +1,10 @@
 package money
 
 type Dollar struct {
-	amount int
+	Money
 }
 
-func newDollar(amount int) *Dollar {
+func NewDollar(amount int) *Dollar {
 	d := new(Dollar)
 	d.amount = amount
 	return d
@@ -12,9 +12,5 @@ func newDollar(amount int) *Dollar {
 
 func (d *Dollar) times(multiplier int) Dollar {
 	// これがコピーを返すっていう意味か！
-	return *newDollar(d.amount * multiplier)
-}
-
-func (d *Dollar) equals(dollar *Dollar) bool {
-	return d.amount == dollar.amount
+	return *NewDollar(d.amount * multiplier)
 }
