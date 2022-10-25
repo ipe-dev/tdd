@@ -41,3 +41,13 @@ func TestFrancMultiplication(t *testing.T) {
 		t.Errorf("expect %d actual %d", 15, five.amount)
 	}
 }
+
+func TestSimpleAddition(t *testing.T) {
+	five := NewDollar(5)
+	sum := five.plus(five)
+	bank := new(Bank) 
+	reduced := bank.reduce(sum,"USD")
+	if NewDollar(10) != reduced {
+		t.Errorf("expect true actual false")
+	}
+}
