@@ -10,7 +10,7 @@ type Money struct {
 	currency string
 }
 
-func NewMoney(amount int, currency string) Expression {
+func NewMoney(amount int, currency string) Money {
 	return Money{
 		amount: amount,
 		currency: currency,
@@ -31,7 +31,7 @@ func (m Money) Equals(money Money) bool {
 func NewDollar(amount int) Money {
 	return Money{
 		amount: amount,
-		currency: "dollar",
+		currency: "USD",
 	}
 }
 
@@ -45,10 +45,10 @@ func (m Money) Times(multiplier int) Money {
 func NewFranc(amount int) Money {
 	return Money {
 		amount: amount,
-		currency: "franc",
+		currency: "CHF",
 	}
 }
 
 func (m Money) plus(addend Money) Expression {
-	return NewMoney(m.amount + addend.amount, m.currency)
+	return NewSum(m, addend)
 }

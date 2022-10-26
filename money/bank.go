@@ -3,5 +3,6 @@ type Bank struct {
 	
 }
 func (b *Bank) reduce(source Expression, to string) Money {
-	return NewDollar(10)
+	sum := source.(Sum)
+	return sum.reduce(to)
 }

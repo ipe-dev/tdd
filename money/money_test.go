@@ -2,6 +2,8 @@ package money
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestMultiplication(t *testing.T) {
@@ -15,9 +17,10 @@ func TestMultiplication(t *testing.T) {
 }
 
 func TestEquality(t *testing.T) {
-	if !NewDollar(5).Equals(NewDollar(5)) {
-		t.Error("expect 5dollar equal 5dollar but actual not equal")
-	}
+	t.Run("$5=$5", func(t *testing.T) {
+		assert.True(t, NewDollar(5).Equals(NewDollar(5)))
+
+	})
 	if NewDollar(5).Equals(NewDollar(6)) {
 		t.Error("expect 6dollar not equal 6dollar but actual equal")
 	}
@@ -45,9 +48,28 @@ func TestFrancMultiplication(t *testing.T) {
 func TestSimpleAddition(t *testing.T) {
 	five := NewDollar(5)
 	sum := five.plus(five)
-	bank := new(Bank) 
-	reduced := bank.reduce(sum,"USD")
-	if NewDollar(10) != reduced {
-		t.Errorf("expect true actual false")
-	}
+	bank := new(Bank)
+	reduced := bank.reduce(sum, "USD")
+	assert.Equal(t, NewDollar(10), reduced)
 }
+
+func TestPulsReturnsSum(t *testing.T) {
+	five := NewDollar(5)
+	result := five.plus(five)
+	sum := result.(Sum)
+	t.Run("augendとfiveが等しいこと", func(t *testing.T) {
+		assert.Equal(t,five, sum.augend)
+	})
+
+	t.Run("addendとfiveが等しいこと", func(t *testing.T) {
+		assert.Equal(t, five, sum.addend)
+	})
+}
+
+// func TestReduceSum(t *testing.T) {
+// 	sum := NewSum(NewDollar(3), NewDollar(4))
+// 	bank := NewBank()
+// 	result := bank.reduce(sum, "USD")
+// 	assert.Equal(t, NewDollar(7), result)
+
+// }
