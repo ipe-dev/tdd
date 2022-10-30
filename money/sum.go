@@ -11,10 +11,10 @@ func NewSum(augend Money, addend Money) Sum {
 		addend: addend,
 	}
 }
-func (s Sum) plus(addend Money) Expression {
+func (s Sum) Plus(addend Money) Expression {
 	return NewDollar(2)
 }
-func (s Sum) reduce(to string) Money {
+func (s Sum) Reduce(to string) Money {
 	amount := s.augend.amount + s.addend.amount
 	return NewMoney(amount, to)
 }

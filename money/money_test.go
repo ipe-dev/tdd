@@ -47,15 +47,15 @@ func TestFrancMultiplication(t *testing.T) {
 
 func TestSimpleAddition(t *testing.T) {
 	five := NewDollar(5)
-	sum := five.plus(five)
+	sum := five.Plus(five)
 	bank := new(Bank)
-	reduced := bank.reduce(sum, "USD")
+	reduced := bank.Reduce(sum, "USD")
 	assert.Equal(t, NewDollar(10), reduced)
 }
 
 func TestPulsReturnsSum(t *testing.T) {
 	five := NewDollar(5)
-	result := five.plus(five)
+	result := five.Plus(five)
 	sum := result.(Sum)
 	t.Run("augendとfiveが等しいこと", func(t *testing.T) {
 		assert.Equal(t,five, sum.augend)
@@ -66,10 +66,14 @@ func TestPulsReturnsSum(t *testing.T) {
 	})
 }
 
-// func TestReduceSum(t *testing.T) {
-// 	sum := NewSum(NewDollar(3), NewDollar(4))
-// 	bank := NewBank()
-// 	result := bank.reduce(sum, "USD")
-// 	assert.Equal(t, NewDollar(7), result)
-
-// }
+func TestReduceSum(t *testing.T) {
+	sum := NewSum(NewDollar(3), NewDollar(4))
+	bank := NewBank()
+	result := bank.Reduce(sum, "USD")
+	assert.Equal(t, NewDollar(7), result)
+}
+func TestReduceMoney(t *testing.T) {
+	bank := NewBank()
+	result := bank.Reduce(NewDollar(1), "USD")
+	assert.Equal(t, NewDollar(1), result)
+}

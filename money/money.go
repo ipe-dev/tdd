@@ -49,6 +49,9 @@ func NewFranc(amount int) Money {
 	}
 }
 
-func (m Money) plus(addend Money) Expression {
+func (m Money) Plus(addend Money) Expression {
 	return NewSum(m, addend)
+}
+func (m Money)Reduce (to string) Money {
+	return m;
 }
