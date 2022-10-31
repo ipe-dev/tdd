@@ -49,7 +49,7 @@ func NewFranc(amount int) Money {
 	}
 }
 
-func (m Money) Plus(addend Money) Expression {
+func (m Money) Plus(addend Expression) Expression {
 	return NewSum(m, addend)
 }
 func (m Money) Reduce (bank Bank, to string) Money {

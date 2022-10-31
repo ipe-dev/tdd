@@ -87,3 +87,12 @@ func TestReduceMoneyDifferentCurrency(t *testing.T) {
 func TestIdentityRate(t *testing.T) {
 	assert.Equal(t,  1, NewBank().Rate("USD", "USD"))
 }
+
+func TestMixedAddition(t *testing.T) {
+	var fiveBucks Expression = NewDollar(5)
+	var tenFrancs Expression = NewFranc(10)
+	bank := NewBank()
+	bank.AddRate("CHF", "USD", 2)
+	result := bank.Reduce(fiveBucks.Plus(tenFrancs), "USD")
+	assert.Equal(t, NewDollar(10), result)
+}
