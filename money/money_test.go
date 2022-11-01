@@ -58,7 +58,7 @@ func TestPulsReturnsSum(t *testing.T) {
 	result := five.Plus(five)
 	sum := result.(Sum)
 	t.Run("augendとfiveが等しいこと", func(t *testing.T) {
-		assert.Equal(t,five, sum.augend)
+		assert.Equal(t, five, sum.augend)
 	})
 
 	t.Run("addendとfiveが等しいこと", func(t *testing.T) {
@@ -85,7 +85,7 @@ func TestReduceMoneyDifferentCurrency(t *testing.T) {
 	assert.Equal(t, NewDollar(1), result)
 }
 func TestIdentityRate(t *testing.T) {
-	assert.Equal(t,  1, NewBank().Rate("USD", "USD"))
+	assert.Equal(t, 1, NewBank().Rate("USD", "USD"))
 }
 
 func TestMixedAddition(t *testing.T) {
@@ -95,4 +95,24 @@ func TestMixedAddition(t *testing.T) {
 	bank.AddRate("CHF", "USD", 2)
 	result := bank.Reduce(fiveBucks.Plus(tenFrancs), "USD")
 	assert.Equal(t, NewDollar(10), result)
+}
+
+func TestSumPulsMoney(t *testing.T) {
+	var fiveBucks Expression = NewDollar(5)
+	var tenFrancs Expression = NewFranc(10)
+	bank := NewBank()
+	bank.AddRate("CHF", "USD", 2)
+	var sum Expression = NewSum(fiveBucks, tenFrancs).Plus(fiveBucks)
+	var result Money = bank.Reduce(sum, "USD")
+	assert.Equal(t, NewDollar(15), result)
+}
+
+func TestSumTimes(t *testing.T) {
+	var fiveBucks Expression = NewDollar(5)
+	var tenFrancs Expression = NewFranc(10)
+	bank := NewBank()
+	bank.AddRate("CHF", "USD", 2)
+	var sum Expression = NewSum(fiveBucks, tenFrancs).Times(2)
+	var result Money = bank.Reduce(sum, "USD")
+	assert.Equal(t, NewDollar(20), result)
 }

@@ -35,7 +35,7 @@ func NewDollar(amount int) Money {
 	}
 }
 
-func (m Money) Times(multiplier int) Money {
+func (m Money) Times(multiplier int) Expression {
 	// これがコピーを返すっていう意味か！
 	return Money{
 		amount: m.amount * multiplier,
